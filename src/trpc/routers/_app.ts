@@ -13,9 +13,11 @@ import { MAX_ORDER_LINES, orderInputSchema } from "@/lib/order";
 import { createOrder } from "@/lib/orders";
 import { getWhatsappConfig } from "@/lib/settings";
 import { createTRPCRouter, publicProcedure } from "../init";
+import { adminRouter } from "./admin";
 
 export const appRouter = createTRPCRouter({
   health: publicProcedure.query(() => ({ ok: true })),
+  admin: adminRouter,
   product: createTRPCRouter({
     featured: publicProcedure.query(({ ctx }) =>
       listFeaturedProducts(ctx.prisma),

@@ -20,6 +20,7 @@ const unsplash = (id: string) =>
 export const photos = {
   hero: unsplash("1776267074159-6245a4ec670c"),
   about: unsplash("1723934603579-79ea92d0687b"),
+  adminLogin: unsplash("1676299806238-0f700baed4ca"),
   gallery: [
     {
       src: unsplash("1621868402792-a5c9fa6866a3"),

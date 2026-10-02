@@ -498,7 +498,7 @@ CANCELLED
 4. Quantity produk dalam pesanan harus minimal 1.
 5. Pesanan harus memiliki minimal satu produk.
 6. Admin harus login untuk mengakses dashboard.
-7. Admin dapat mengubah status pesanan.
+7. Admin dapat mengubah status pesanan dengan alur `PENDING` → `PROCESSING` → `COMPLETED`. Pesanan `PENDING` atau `PROCESSING` dapat dibatalkan (`CANCELLED`). `COMPLETED` dan `CANCELLED` adalah status akhir dan tidak dapat diubah lagi.
 8. Produk yang dihapus tidak boleh menyebabkan data pesanan lama kehilangan informasi harga dan item.
 9. Total pesanan dihitung berdasarkan harga produk dikalikan quantity.
 10. Informasi harga dan ketersediaan pada website mengikuti data yang dikelola admin.
@@ -708,7 +708,7 @@ Prosedur tRPC dibagi menjadi:
 
 ## Penyimpanan Gambar
 
-- Vercel Blob atau Cloudinary (filesystem Vercel tidak dapat ditulis)
+- Vercel Blob (filesystem Vercel tidak dapat ditulis). Admin mengunggah foto JPG, PNG, atau WebP maksimal 4 MB melalui `/api/admin/upload`. Foto lama tidak dihapus otomatis saat diganti.
 
 ## Tooling
 
