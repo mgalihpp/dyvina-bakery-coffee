@@ -49,7 +49,7 @@ The PRD lists what is out of scope: payment gateway, QRIS, POS, loyalty, deliver
 
 1. **Killing by pattern.** Shell is bash on Windows. Never kill processes by name or path match. Kill only a PID you captured when you started the server, or the owner of your port from `netstat -ano`. Other dev servers may be running.
 2. **Trusting the client with money.** Never accept `price`, `subtotal`, or `total` from the browser. Recompute from the database inside the procedure, and re-check `isAvailable` there.
-3. **Importing the wrong Prisma.** The client is generated into `src/generated/prisma`. Import from `@/generated/prisma/client`, never `@prisma/client`. After a fresh clone or any `schema.prisma` edit, run `bun run db:generate`.
+3. **Importing the wrong Prisma.** The client is generated into `src/generated/prisma`. Import from `@/generated/prisma/client`, never `@prisma/client`. `bun install` generates it through `postinstall`, which is also how Vercel builds get it. After any `schema.prisma` edit, run `bun run db:generate`.
 4. **Bumping Prisma to 8.** Prisma is pinned to 7.10.0 on purpose: the `prisma` npm tag is 8.0.0-rc while `@prisma/client` stable is 7.x. Do not upgrade without Galih's approval.
 5. **Adding ESLint.** Linting is Biome. `typescript-eslint` does not support TypeScript 7, so ESLint breaks the toolchain. Do not add `eslint` or `eslint-config-next`.
 6. **Writing uploads to `public/`.** Vercel's filesystem is read-only. Product images go to external storage (Vercel Blob or Cloudinary, per the PRD).
