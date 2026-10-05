@@ -53,8 +53,8 @@ The PRD lists what is out of scope: payment gateway, QRIS, POS, loyalty, deliver
 4. **Bumping Prisma to 8.** Prisma is pinned to 7.10.0 on purpose: the `prisma` npm tag is 8.0.0-rc while `@prisma/client` stable is 7.x. Do not upgrade without Galih's approval.
 5. **Adding ESLint.** Linting is Biome. `typescript-eslint` does not support TypeScript 7, so ESLint breaks the toolchain. Do not add `eslint` or `eslint-config-next`.
 6. **Writing uploads to `public/`.** Vercel's filesystem is read-only. Product images go to external storage (Vercel Blob or Cloudinary, per the PRD).
-7. **Running migrations against the wrong database.** `prisma migrate dev` can reset a database. Check `DATABASE_URL` points at a dev database before running it. Never run it against production.
-8. **Committing secrets.** `.env*` is gitignored except `.env.example`. Never print or paste `BETTER_AUTH_SECRET` or `DATABASE_URL`.
+7. **Running migrations against the wrong database.** `prisma migrate dev` can reset a database. Check `DIRECT_URL` (what the Prisma CLI uses) points at a dev database before running it. Never run it against production.
+8. **Committing secrets.** `.env*` is gitignored except `.env.example`. Never print or paste `BETTER_AUTH_SECRET`, `DATABASE_URL`, or `DIRECT_URL`.
 
 ## Hit every surface
 
@@ -72,7 +72,7 @@ The most likely defect is a change that works on the path you tested and is miss
 ## Dev servers
 
 - `bun install` installs. `bun run dev` starts Next.js on port 3000. `bun run build` is a good smoke test and needs no database.
-- Bun loads `.env` automatically. There is no `dotenv`. Copy `.env.example` to `.env` and fill `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
+- Bun loads `.env` automatically. There is no `dotenv`. Copy `.env.example` to `.env` and fill `DATABASE_URL` (pooled, runtime), `DIRECT_URL` (direct, Prisma CLI), `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
 - First-time database: `bun run db:migrate`, then `bun run db:seed`. The seed script is the only way to create an admin, because public sign-up is disabled. It has not yet been run against a real database.
 - Stop only what you started, by the PID you tracked. See rule 1.
 

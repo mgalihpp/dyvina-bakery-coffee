@@ -10,6 +10,7 @@ export default defineConfig({
     seed: "bun prisma/seed.ts",
   },
   datasource: {
-    url: env("DATABASE_URL"),
+    // CLI commands (migrate, studio) need a direct connection, not the pooler.
+    url: env("DIRECT_URL"),
   },
 });
